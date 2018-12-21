@@ -1,0 +1,9 @@
+# dependencies
+node_modules
+vendor
+
+# logs
+*.log
+
+# Nuxt generate
+dist
