@@ -3,7 +3,7 @@ import author from './author'
 
 export default (post: Post) => {
   return `
-  <article data-history="${post.slug}" class="swiper-slide post">
+  <article class="swiper-slide post">
     <header class="post-header">    
       ${author(post.author)}      
     </header>    

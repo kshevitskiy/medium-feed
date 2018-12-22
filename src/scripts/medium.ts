@@ -1,9 +1,8 @@
-import { Swiper, History } from 'swiper/dist/js/swiper.esm.js';
+import { Swiper } from 'swiper/dist/js/swiper.esm.js';
 import NetworkService from '../services/NetworkService'
-import { Post, Author } from './Post'
+import { Post } from './Post'
+import { Author } from './Author'
 import template from '../templates/post'
-
-Swiper.use([History]);
 
 const sliderElement = document.getElementById('medium');
 const wrapperElement = sliderElement.querySelector('.swiper-wrapper');
@@ -27,6 +26,8 @@ class Medium {
     async createPosts() {      
       const data = await NetworkService.getPosts()
         .then(response => {
+          console.log('FEED: ', response.feed)
+          console.log('POSTS: ', response.items)
           const author = response.feed
           const posts = response.items.map((post: Post) => {
             return new Post(
