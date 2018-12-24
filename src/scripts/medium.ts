@@ -1,33 +1,35 @@
-import { Swiper } from 'swiper/dist/js/swiper.esm.js';
-import NetworkService from '../services/NetworkService'
 import { Post } from './Post'
 import { Author } from './Author'
+import { Swiper } from 'swiper/dist/js/swiper.esm.js'
+import NetworkService from '../services/NetworkService'
 import template from '../templates/post'
-
-const sliderElement = document.getElementById('medium');
-const wrapperElement = sliderElement.querySelector('.swiper-wrapper');
 
 class Medium {
     constructor(
-        public selector: HTMLElement = sliderElement
+        public selector: HTMLElement = null
     ) {
         this.selector = selector
     }
 
     slider(selector: HTMLElement) {
       return new Swiper(selector, {
-        slidesPerView: 'auto',
+        slidesPerView: 2,
         spaceBetween: 0,
         speed: 400,
-        mousewheel: true
+        mousewheel: true,
+        breakpoints: {
+          922: {
+            slidesPerView: 1,
+          }
+        }        
       });
     }
 
     async createPosts() {      
       const data = await NetworkService.getPosts()
         .then(response => {
-          console.log('FEED: ', response.feed)
-          console.log('POSTS: ', response.items)
+          // console.log('FEED: ', response.feed)
+          // console.log('POSTS: ', response.items)
           const author = response.feed
           const posts = response.items.map((post: Post) => {
             return new Post(
@@ -53,13 +55,16 @@ class Medium {
     mount(posts: Array<Post>) {        
       posts.forEach(post => {        
         // Todo. Optimize this, dont use +=
-        wrapperElement.innerHTML += template(post)        
+        this.selector.querySelector('.swiper-wrapper').innerHTML += template(post)            
       })          
-    }    
+    }
 
-    init() {
+    init(selector: HTMLElement) {
+      if (!selector) {
+        return false
+      }
+      this.selector = selector
       this.createPosts().then(posts => {
-        // console.log('Posts: ', posts)
         this.mount(posts)
         this.slider(this.selector)
       })
