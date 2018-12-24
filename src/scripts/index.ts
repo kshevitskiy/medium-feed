@@ -1,4 +1,5 @@
 import Medium from './medium'
 
+const slider = document.getElementById('medium');
 
-Medium.init();
+Medium.init(slider);
