@@ -1,5 +1,9 @@
-import Medium from './medium'
+import router from '../router/index'
 
-const slider = document.getElementById('medium');
+declare global {
+  interface Window { 
+    $router: any; 
+  }
+}
 
-Medium.init(slider);
+router.resolve();
