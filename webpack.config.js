@@ -42,7 +42,8 @@ module.exports = {
   
   devServer: {    
     port: 3000,
-    contentBase: DIST_DIR
+    contentBase: DIST_DIR,
+    historyApiFallback: true,
   },
 
   module: {

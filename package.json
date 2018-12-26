@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "moment": "^2.23.0",
+    "navigo": "^7.1.2",
     "swiper": "^4.4.5"
   }
 }

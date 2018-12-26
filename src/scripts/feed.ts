@@ -4,7 +4,7 @@ import { Swiper } from 'swiper/dist/js/swiper.esm.js'
 import NetworkService from '../services/NetworkService'
 import template from '../templates/post'
 
-class Medium {
+class Feed {
     constructor(
         public selector: HTMLElement = null
     ) {
@@ -67,9 +67,10 @@ class Medium {
       this.createPosts().then(posts => {
         this.mount(posts)
         this.slider(this.selector)
+        window.$router.updatePageLinks()
       })
     }    
 }
 
-export default new Medium()
+export default new Feed()
 
